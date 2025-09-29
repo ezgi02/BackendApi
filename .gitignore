@@ -361,4 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/BackendApi.sln
+# SQLite / local DB
+app.db
+App_Data/
+*.db
