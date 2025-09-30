@@ -26,6 +26,9 @@ using (var scope = app.Services.CreateScope())
     db.Database.Migrate(); // app.db oluþturur, Messages tablosunu yaratýr
 }
 
+// Saðlýk ucu (Render health check için)
+app.MapGet("/health", () => "ok");
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -40,4 +43,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-//app.MapGet("/health", () => "ok");
