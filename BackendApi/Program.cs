@@ -4,6 +4,12 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// CORS: named policy
+const string CorsPolicy = "AllowAll";
+builder.Services.AddCors(o => o.AddPolicy(CorsPolicy, p =>
+    p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()
+));
+
 //bunlar benim eklediðim
 var cs = builder.Configuration.GetConnectionString("Sqlite") ?? "Data Source=app.db";
 builder.Services.AddDbContext<AppDbContext>(o => o.UseSqlite(cs));
@@ -25,6 +31,10 @@ using (var scope = app.Services.CreateScope())
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     db.Database.Migrate(); // app.db oluþturur, Messages tablosunu yaratýr
 }
+
+// **CORS'u erkenden uygula**
+app.UseCors(CorsPolicy);
+
 
 // Saðlýk ucu (Render health check için)
 app.MapGet("/health", () => "ok");
