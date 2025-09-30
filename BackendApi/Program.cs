@@ -19,6 +19,13 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+// DB'yi oluþtur ve bekleyen migration'larý uygula
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.Migrate(); // app.db oluþturur, Messages tablosunu yaratýr
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
