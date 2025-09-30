@@ -5,9 +5,15 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // CORS: named policy
-const string CorsPolicy = "AllowAll";
+/*const string CorsPolicy = "AllowAll";
 builder.Services.AddCors(o => o.AddPolicy(CorsPolicy, p =>
     p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()
+));*/
+const string CorsPolicy = "WebOnly";
+builder.Services.AddCors(o => o.AddPolicy(CorsPolicy, p =>
+    p.WithOrigins("https://frontend-f4wdwuade-kayabeliz95-8865s-projects.vercel.app")
+     .AllowAnyHeader()
+     .AllowAnyMethod()
 ));
 
 //bunlar benim eklediðim
